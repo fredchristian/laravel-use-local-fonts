@@ -2,11 +2,11 @@
 
 Ce projet est né d'un constat: vous êtes souvent nombreuses et nombreux à galérer pour utiliser des polices stockée en local dans vos projets Laravel avec Tailwind CSS et Vite. 
 
-Parmis vous, il y en a qui abandonnent et qui cèdent aux sirènes du CDN de Google Fonts quand d'autres usent de pratiques obscures pour arriver à leurs fins (les paths qui pointent vers le rep ./public, on vous à vu le faire, c'est pas bien!)
+Parmis vous, il y en a qui abandonnent et qui cèdent aux sirènes du CDN de Google Fonts quand d'autres usent de pratiques obscures pour arriver à leurs fins (les paths qui pointent vers le rep ./public, on vous a vu le faire, c'est pas bien!)
 
 ## Introduction
 
-Nous allons partir du principe que vous avez déjà un projet Laravel auxquel vous voulez ajouter votre propre sélection de polices que vous voudrez stocker en local. Ou bien vous pouvez tout simplement cloner ce projet, auxquel cas il faudra au préalable lancer les commandes suivantes pour installer les dépendances nécessaires :
+Nous allons partir du principe que vous avez déjà un projet Laravel auquel vous voulez ajouter votre propre sélection de polices que vous voudriez stocker en local. Ou bien vous pouvez tout simplement cloner ce projet, auquel cas il faudra au préalable lancer les commandes suivantes pour installer les dépendances nécessaires :
 
 ````
 composer install
@@ -16,29 +16,29 @@ npm run dev
 
 ### Sélectionner, télécharger et stocker des polices
 
-Pour des soucis de simplicité, nous allons utiliser une police issues de [Google Fonts](https://fonts.google.com/). Prenons par exemple la police [DM Serif Display](https://fonts.google.com/specimen/DM+Serif+Display?query=dm), non seulement parce qu'elle est jolie mais aussi parce qu'elle ne contient qu'une seule graisse (400, afin de ne pas alourdir notre exemple).
+Pour un souci de simplicité, nous allons utiliser une police issue de [Google Fonts](https://fonts.google.com/). Prenons par exemple la police [DM Serif Display](https://fonts.google.com/specimen/DM+Serif+Display?query=dm), non seulement parce qu'elle est jolie mais aussi parce qu'elle ne contient qu'une seule graisse (400, afin de ne pas alourdir notre exemple).
 
-Comment la télécharger? Bon, Google Font propose un magnifique lien "Download Family", mais nous allons plutôt nous "simplifier" la vie et passer par un service tiers nommé (Google Webfonts Helper)[https://google-webfonts-helper.herokuapp.com/fonts] afin de non seulement récupérer un zip avec les fichiers de la police désirée mais aussi le CSS qui va bien avec. 
+Comment la télécharger? Bon, Google Font propose un magnifique lien "Download Family", mais nous allons plutôt nous "simplifier" la vie et passer par un service tiers nommé [Google Webfonts Helper](https://google-webfonts-helper.herokuapp.com/fonts) afin de non seulement récupérer un zip avec les fichiers de la police désirée mais aussi le CSS qui va bien avec. 
 
-Utilisons (ce lien)[https://google-webfonts-helper.herokuapp.com/fonts/dm-serif-display?subsets=latin] pour reprendre notre police DM Serif Display. Vous verrez qu'il y a 4 étapes succintes, que vous adapterez en fonction de vos envies :
+Utilisons [ce lien](https://google-webfonts-helper.herokuapp.com/fonts/dm-serif-display?subsets=latin) pour reprendre notre police DM Serif Display. Vous verrez qu'il y a 4 étapes successives, que vous adapterez en fonction de vos envies :
 
-1. Select charsets
+1. **Select charsets**
 Nous utiliserons le charset par défaut `Latin`
 
-2. Select styles
+2. **Select styles**
 Nous utiserons le style par défaut `regular`
 
-3. Copy CSS
+3. **Copy CSS**
 L'idéal serait que vous gardiez le paramètre par défaut `Best Support`. Dans notre exemple, nous allons nous contenter d'utiliser `Modern Browser` afin de nous alléger cette documentation. Le plus important ici est de bien paramétrer l'option `Customize folder prefix (optional)` qui est bien souvent votre plus grande source de problème. Initialement configurée sur `../fonts/`, nous allons remplacer cela par `./`, ni plus, ni moins. Ne copiez pas le CSS tout de suite, nous allons le faire après.
 
-4. Download files
+4. **Download files**
 Rien de compliqué, il faut cliquer sur le gros bouton bleu pour récupérer une archive Zip de la police sélectionnée, décompresser l'archive, la renommer pour obtenir un nom plus "propre", comme par exemple `dm-serif-display` et d'aller le placer dans le dossier `./resources/fonts` de votre app Laravel, que vous aurez préalablement créé si il n'existe pas encore.
 
 Malheureusement, le service Google Webfonts Helper n'inclut pas dans l'archive Zip le fichier CSS contenant le `@font-face`, nous allons devoir le créer nous même. Pour cela, créer un fichier nommé `dm-serif-display.css` dans le répertoire `./resources/fonts/dm-serif-display` et collez-y le code CSS fourni à l'étape 3. Enregistrer votre fichier. Nous n'en avons pas terminé pour autant...
 
 ### Paramétrer Tailwind CSS
 
-A ce niveau, nous allons estimer que vous avez déjà installé Tailwind CSS, et si malgré tout ce n'était pas encore le cas, je ne vais rien vous apprendre de plus que ce qu'il est écrit dans (la documentation officielle)[https://tailwindcss.com/docs/guides/laravel] pour l'installer correctement dans votre projet Laravel.  
+A ce niveau, nous allons estimer que vous avez déjà installé Tailwind CSS, et si malgré tout ce n'était pas encore le cas, je ne vais rien vous apprendre de plus que ce qu'il est écrit dans [la documentation officielle](https://tailwindcss.com/docs/guides/laravel) pour l'installer correctement dans votre projet Laravel.  
 
 Techniquement, vous devriez avoir un fichier `app.css` dans votre répertoire `./resources` et qui doit contenir les lignes suivantes : 
 
@@ -54,17 +54,17 @@ Nous allons ajouter en haut de ce fichier la ligne suivante :
 @import '../fonts/dm-serif-display/dm-serif-display.css';
 ````
 
-Vu que le path est un problème récurrent, je vous explique ce que l'on fait ici. Techniquement, l'arborescence de notre dossier `./resources` est, grosso modo, la suivante :
+Vu que le path est un problème récurrent, je vous explique ce que l'on fait ici. L'arborescence de notre dossier `./resources` est, grosso modo, la suivante :
 
 ````
-Resources
+resources
 |- css
 |    |- app.css
 |- fonts
 |    |- dm-serif-display
-|    |     |- dm-serif-display-v10-latin-regular.woff
-|    |     |- dm-serif-display-v10-latin-regular.woff2
-|    |     |- dm-serif-display.css
+|          |- dm-serif-display-v10-latin-regular.woff
+|          |- dm-serif-display-v10-latin-regular.woff2
+|          |- dm-serif-display.css
 |- js
 |- views
 ````
