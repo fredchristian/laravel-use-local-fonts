@@ -1,0 +1,17 @@
+@import './fonts.css';
+
+@tailwind base;
+    @layer base {
+        html, body {
+            min-height: -webkit-fill-available;
+            -webkit-touch-callout: none;
+            @apply h-full w-full m-0 scroll-smooth;
+        }
+
+        a {
+            @apply duration-150;
+        }
+    }
+
+@tailwind components;
+@tailwind utilities;
