@@ -3,7 +3,7 @@
 ])
 
 <div class="space-y-4">
-    <h2 class="font-medium text-base text-gray-500">
+    <h2 class="font-medium text-base text-gray-400">
         {{ __('Regular 400 at :size', ['size' => $size]) }}
     </h2>
     
